@@ -16,7 +16,13 @@ It is a retail busineses data set. The general idea of this project is to identi
 
 # Basic Question:
   1. How many unique customer's we have?
-  2. How many unique categories? Also, what are they?
+       '''sql
+                        SELECT COUNT(DISTINCT category)
+                as total_category
+                FROM retail_sales;
+       '''
+       
+  3. How many unique categories? Also, what are they?
 
 # Stake Holders Question:
   1. The total sales made on '2022-11-05'?
