@@ -54,11 +54,26 @@ It is a retail busineses data set. The general idea of this project is to identi
       FROM retail_sales
       GROUP BY 1
      ```
-  4. Write a SQL query to find the average age of customers who purchased items from the 'Beauty' category
-  6. Find the average age of customers who purchased items from the 'Beauty' category?
-  7. Find all transactions where the total_sale is greater than 1000?
+  4. Find the average age of customers who purchased items from the **'Beauty'** category?
+     ```sql
+      SELECT ROUND(AVG(age),0) as average_age
+      FROM retail_sales
+      WHERE category = 'Beauty';
+     ```
+  5. Find all transactions where the total_sale is greater than 1000?
+     ```sql
+      SELECT *
+      FROM retail_sales
+      WHERE total_sale > 1000;
+     ```
   8. Find the total number of transactions (transaction_id) made by each gender in each category?
-  9. Calculate the average sale for each month. Find out best selling month in each year?
-  10. Find the top 5 customers based on the highest total sales?
-  11. Find the number of unique customers who purchased items from each category?
-  12.   Create each shift and number of orders (Example Morning <12, Afternoon Between 12 & 17, Evening >17)
+	```sql
+      SELECT *
+      FROM retail_sales
+      WHERE total_sale > 1000;
+     ```
+  9. 
+  10. Calculate the average sale for each month. Find out best selling month in each year?
+  11. Find the top 5 customers based on the highest total sales?
+  12. Find the number of unique customers who purchased items from each category?
+  13.   Create each shift and number of orders (Example Morning <12, Afternoon Between 12 & 17, Evening >17)
