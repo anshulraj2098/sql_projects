@@ -66,28 +66,25 @@ It is a retail busineses data set. The general idea of this project is to identi
       FROM retail_sales
       WHERE total_sale > 1000;
      ```
-  6. find the total number of transactions (transaction_id) made by each gender in each category.:
-     ``` sql
-	SELECT
-		category,
-		gender,
-		COUNT(*) as total_trans
-	FROM retail_sales
-	GROUP BY category, gender
-	ORDER BY 1
-	```
-7. 
+  6. find the total number of transactions (transaction_id) made by each gender in each category?
+		```SQL
+      SELECT category, gender, COUNT(*) as total_trans
+	  FROM retail_sales
+	  GROUP BY category, gender
+	  ORDER BY 1
+  		```
+8. 
 
 
   
-  8. Find the total number of transactions (transaction_id) made by each gender in each category?
+  9. Find the total number of transactions (transaction_id) made by each gender in each category?
 	```sql
       SELECT *
       FROM retail_sales
       WHERE total_sale > 1000;
      ```
-  9. 
-  10. Calculate the average sale for each month. Find out best selling month in each year?
-  11. Find the top 5 customers based on the highest total sales?
-  12. Find the number of unique customers who purchased items from each category?
-  13.   Create each shift and number of orders (Example Morning <12, Afternoon Between 12 & 17, Evening >17)
+  10. 
+  11. Calculate the average sale for each month. Find out best selling month in each year?
+  12. Find the top 5 customers based on the highest total sales?
+  13. Find the number of unique customers who purchased items from each category?
+  14.   Create each shift and number of orders (Example Morning <12, Afternoon Between 12 & 17, Evening >17)
