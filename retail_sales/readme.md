@@ -67,7 +67,7 @@ It is a retail busineses data set. The general idea of this project is to identi
       WHERE total_sale > 1000;
      ```
   6. find the total number of transactions (transaction_id) made by each gender in each category.:
-	```sql
+     ``` sql
 	SELECT
 		category,
 		gender,
