@@ -114,7 +114,7 @@ It is a retail busineses data set. The general idea of this project is to identi
 
 1. Find the total number of tran11.
 	```sql
-		SELECT COUNT(*) AS total_transactions 
+	SELECT COUNT(*) AS total_transactions 
 	FROM SQLRetailSalesAnalysis_utf
 	``` 
 2. Calculate the average sale for each month. Find out best selling month in each year?
