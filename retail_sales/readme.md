@@ -14,14 +14,13 @@ This is to demonstrate how the stakeholders queries were resolved with SQL.
 # Project Objective:
 It is a retail busineses data set. The general idea of this project is to identify key problems and finding the answers to it.
 
-# Basic Question:
+# Project based Questions:
   1. How many unique customer's we have?
       ```sql
       SELECT COUNT(DISTINCT category)
       as total_category
       FROM retail_sales;
       ```
-       
   2. How many unique categories? Also, what are they?
       ``` sql
       SELECT DISTINCT category
@@ -45,7 +44,6 @@ It is a retail busineses data set. The general idea of this project is to identi
       	AND 
       	quantiy >=4
      ```
-
   3. Calculate the total sales **(total_sale)** for each category?
      ```sql
       SELECT category,
@@ -73,18 +71,123 @@ It is a retail busineses data set. The general idea of this project is to identi
 	  GROUP BY category, gender
 	  ORDER BY 1
   		```
-8. 
-
-
-  
-  9. Find the total number of transactions (transaction_id) made by each gender in each category?
+  7.  calculate the average sale for each month. Find out best selling month in each year:
 	```sql
-      SELECT *
-      FROM retail_sales
-      WHERE total_sale > 1000;
-     ```
-  10. 
-  11. Calculate the average sale for each month. Find out best selling month in each year?
-  12. Find the top 5 customers based on the highest total sales?
-  13. Find the number of unique customers who purchased items from each category?
-  14.   Create each shift and number of orders (Example Morning <12, Afternoon Between 12 & 17, Evening >17)
+		SELECT year, month, avg_sale
+			FROM 
+				(
+				SELECT 
+				EXTRACT(YEAR FROM sale_date) as year,
+				EXTRACT(MONTH FROM sale_date) as month,
+				AVG(total_sale) as avg_sale,
+				RANK() OVER(PARTITION BY EXTRACT(YEAR FROM sale_date)ORDER BY AVG(total_sale) DESC) as rank
+				FROM retail_sales
+				GROUP BY 1, 2
+				) as T1
+			WHERE rank = 1
+	```
+  8. Find the top 5 customers based on the highest total sales?
+	``` sql
+			SELECT 
+				customer_id,
+				SUM(total_sale) as total_sales
+			FROM retail_sales
+			GROUP BY 1
+			ORDER BY 2 DESC
+			LIMIT 5
+	```
+9. Find the number of unique customers who purchased items from each category
+	```sql
+		SELECT
+			category,
+			COUNT(DISTINCT customer_id) as count_unique_customer
+		FROM retail_sales
+		GROUP BY category
+	```
+
+10. Create each shift and number of orders (Example Morning <12, Afternoon Between 12 & 17, Evening >17)
+	```sql
+		WITH hourly_sale
+		AS(
+		SELECT *,
+			CASE
+			WHEN EXTRACT(HOUR FROM sale_time) < 12 THEN 'Morning'
+			WHEN EXTRACT(HOUR FROM sale_time) BETWEEN 12 AND 17 THEN 'Afternoon'
+			ELSE 'Evening'
+		END AS shift
+		FROM retail_sales
+			)
+			SELECT
+				shift,
+				COUNT(*) as total_orders
+			FROM hourly_sale
+			GROUP BY shift
+	```
+# Project based Questions - Advanced:
+
+1. Find the total number of tran11.
+	```sql
+		SELECT COUNT(*) AS total_transactions 
+	FROM SQLRetailSalesAnalysis_utf
+	``` 
+2. Calculate the average sale for each month. Find out best selling month in each year?
+	```sql
+	# -> Part 1: Finding out the average sale per month.
+	
+	SELECT 
+		EXTRACT(MONTH FROM sale_date) as month,
+	   AVG(total_sale) AS avg_sale
+	FROM retail_sales
+	GROUP BY 1
+	ORDER BY 1;
+	
+	# -> Part 2: Next Step is, finding out the best selling month
+	SELECT YEAR, MONTH, total_sales
+			FROM (
+				SELECT 
+				EXTRACT(YEAR FROM sale_date) as year,
+				EXTRACT(MONTH FROM sale_date) as month,
+				SUM(total_sale) as total_sales,
+				RANK() OVER(PARTITION BY EXTRACT(YEAR FROM sale_date) ORDER BY SUM(total_sale) DESC) AS Best_selling_month
+				FROM retail_sales
+				GROUP BY 1, 2
+				) AS t1
+	WHERE Best_selling_month = 1;
+	```
+3. Find the top 5 customers based on the highest total sales?
+```sql
+	SELECT 
+	    customer_id,
+	    SUM(total_sale) AS total_sales
+	FROM retail_sales
+	GROUP BY 1
+	ORDER BY 2 DESC
+	LIMIT 5;
+```
+4. Find the number of unique customers who purchased items from each category?
+	```sql
+	SELECT category, COUNT(DISTINCT customer_id) as Unique_Customers
+	FROM retail_sales
+	GROUP BY category;
+ 	```
+5. Create each shift and number of orders (Example Morning <12, Afternoon Between 12 & 17, Evening >17)transactions (transaction_id) made by each gender in each category?
+	```sql
+	WITH hourly_sales AS (
+	    SELECT *,
+	        CASE
+	            WHEN HOUR(sale_time) < 12 THEN 'Morning'
+	            WHEN HOUR(sale_time) BETWEEN 12 AND 17 THEN 'Afternoon'
+	            ELSE 'Evening'
+	        END as shift
+	    FROM retail_sales
+	)
+	SELECT 
+	    category,
+	    gender,
+	    shift,
+	    COUNT(*) as total_orders
+	FROM hourly_sales
+	GROUP BY category, gender, shift
+	ORDER BY category, total_orders DESC;
+	```
+
