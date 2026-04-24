@@ -46,35 +46,35 @@ It is a retail busineses data set. The general idea of this project is to identi
       WHERE category = 'Beauty';
      ```
   5. Find all transactions where the total_sale is greater than 1000?
-     ```sql
-      SELECT *
-      FROM retail_sales
-      WHERE total_sale > 1000;
-     ```
+	    ```sql
+	      SELECT *
+	      FROM retail_sales
+	      WHERE total_sale > 1000;
+	     ```
   6. find the total number of transactions (transaction_id) made by each gender in each category?
-		```SQL
-      SELECT category, gender, COUNT(*) as total_trans
-	  FROM retail_sales
-	  GROUP BY category, gender
-	  ORDER BY 1
-  		```
+```sql
+		SELECT category, gender, COUNT(*) as total_trans
+			  FROM retail_sales
+			  GROUP BY category, gender
+			  ORDER BY 1
+```
   7.  calculate the average sale for each month. Find out best selling month in each year:
-	```sql
-		SELECT year, month, avg_sale
-			FROM 
-				(
-				SELECT 
-				EXTRACT(YEAR FROM sale_date) as year,
-				EXTRACT(MONTH FROM sale_date) as month,
-				AVG(total_sale) as avg_sale,
-				RANK() OVER(PARTITION BY EXTRACT(YEAR FROM sale_date)ORDER BY AVG(total_sale) DESC) as rank
-				FROM retail_sales
-				GROUP BY 1, 2
-				) as T1
-			WHERE rank = 1
-	```
+```sql
+			SELECT year, month, avg_sale
+				FROM 
+					(
+					SELECT 
+					EXTRACT(YEAR FROM sale_date) as year,
+					EXTRACT(MONTH FROM sale_date) as month,
+					AVG(total_sale) as avg_sale,
+					RANK() OVER(PARTITION BY EXTRACT(YEAR FROM sale_date)ORDER BY AVG(total_sale) DESC) as rank
+					FROM retail_sales
+					GROUP BY 1, 2
+					) as T1
+				WHERE rank = 1
+```
   8. Find the top 5 customers based on the highest total sales?
-	``` sql
+``` sql
 			SELECT 
 				customer_id,
 				SUM(total_sale) as total_sales
@@ -82,7 +82,7 @@ It is a retail busineses data set. The general idea of this project is to identi
 			GROUP BY 1
 			ORDER BY 2 DESC
 			LIMIT 5
-	```
+```
 9. Find the number of unique customers who purchased items from each category
 	```sql
 		SELECT
