@@ -15,19 +15,6 @@ This is to demonstrate how the stakeholders queries were resolved with SQL.
 It is a retail busineses data set. The general idea of this project is to identify key problems and finding the answers to it.
 
 # Project based Questions:
-  1. How many unique customer's we have?
-      ```sql
-      SELECT COUNT(DISTINCT category)
-      as total_category
-      FROM retail_sales;
-      ```
-  2. How many unique categories? Also, what are they?
-      ``` sql
-      SELECT DISTINCT category
-      as total_category
-      FROM retail_sales;
-      ``` 
-# Stake Holders Question:
   1. The total sales made on '2022-11-05'?
      ```sql
       SELECT *
