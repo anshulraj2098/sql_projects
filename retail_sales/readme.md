@@ -93,13 +93,7 @@ It is a retail busineses data set. The general idea of this project is to identi
 	```
 
 # Project based Questions - Advanced:
-
-1. Find the total number of transaction id = 11.
-	```sql
-	SELECT COUNT(*) AS total_transactions 
-	FROM SQLRetailSalesAnalysis_utf
-	``` 
-2. Calculate the average sale for each month. Find out best selling month in each year?
+1. Calculate the average sale for each month. Find out best selling month in each year?
 	```sql
 	# -> Part 1: Finding out the average sale per month.
 	
@@ -123,7 +117,7 @@ It is a retail busineses data set. The general idea of this project is to identi
 				) AS t1
 	WHERE Best_selling_month = 1;
 	```
-3. Find the top 5 customers based on the highest total sales?
+2. Find the top 5 customers based on the highest total sales?
 ```sql
 	SELECT 
 	    customer_id,
@@ -133,13 +127,13 @@ It is a retail busineses data set. The general idea of this project is to identi
 	ORDER BY 2 DESC
 	LIMIT 5;
 ```
-4. Find the number of unique customers who purchased items from each category?
+3. Find the number of unique customers who purchased items from each category?
 	```sql
 	SELECT category, COUNT(DISTINCT customer_id) as Unique_Customers
 	FROM retail_sales
 	GROUP BY category;
  	```
-5. Create each shift and number of orders (Example Morning <12, Afternoon Between 12 & 17, Evening >17)transactions (transaction_id) made by each gender in each category?
+4. Create each shift and number of orders (Example Morning <12, Afternoon Between 12 & 17, Evening >17)transactions (transaction_id) made by each gender in each category?
 	```sql
 	WITH hourly_sales AS (
 	    SELECT *,
