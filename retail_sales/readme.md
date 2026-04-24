@@ -92,24 +92,6 @@ It is a retail busineses data set. The general idea of this project is to identi
 		GROUP BY category
 	```
 
-10. Create each shift and number of orders (Example Morning <12, Afternoon Between 12 & 17, Evening >17)
-	```sql
-		WITH hourly_sale
-		AS(
-		SELECT *,
-			CASE
-			WHEN EXTRACT(HOUR FROM sale_time) < 12 THEN 'Morning'
-			WHEN EXTRACT(HOUR FROM sale_time) BETWEEN 12 AND 17 THEN 'Afternoon'
-			ELSE 'Evening'
-		END AS shift
-		FROM retail_sales
-			)
-			SELECT
-				shift,
-				COUNT(*) as total_orders
-			FROM hourly_sale
-			GROUP BY shift
-	```
 # Project based Questions - Advanced:
 
 1. Find the total number of transaction id = 11.
