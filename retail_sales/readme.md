@@ -112,7 +112,7 @@ It is a retail busineses data set. The general idea of this project is to identi
 	```
 # Project based Questions - Advanced:
 
-1. Find the total number of tran11.
+1. Find the total number of transaction id = 11.
 	```sql
 	SELECT COUNT(*) AS total_transactions 
 	FROM SQLRetailSalesAnalysis_utf
